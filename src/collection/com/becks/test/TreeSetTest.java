@@ -32,3 +32,4 @@ public class TreeSetTest {
 	}
 
 }
+//自然排序，升序

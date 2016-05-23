@@ -35,4 +35,3 @@ public class TreeSetTest2 {
  * TreeSet的自然排序是根据集合元素的大小，TreeSet将它们以升序排序。如果我们需要实现定制排序，则可以通过Comparator接口的帮助。
  * 该接口里包含一个int compare(T o1， T o2)方法，该方法用于比较大小
  */
- 
