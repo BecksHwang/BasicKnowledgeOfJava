@@ -1,6 +1,6 @@
 package Thread.com.becks.test;
 
-import java.util.PriorityQueue;
+import java.util.ArrayDeque;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -8,16 +8,22 @@ import java.util.concurrent.TimeUnit;
 public class ThreadPollTest {
 
 	public static void main(String[] args) {
+		int i = 5;
 		Target t = new Target();
 		ThreadExecute threadExecute = new ThreadExecute();
-		threadExecute.targetThead(t);
+		while (i > 0) {
+			threadExecute.targetThead(t);
+			--i;
+		}
+		threadExecute.shotdown();
 	}
 
 }
 
 class grapTask implements Runnable {
+	int count = 5;
 
-	private Target T;
+	private static Target T;
 
 	grapTask(Target t) {
 		this.T = t;
@@ -26,36 +32,39 @@ class grapTask implements Runnable {
 
 	@Override
 	public void run() {
+		--count;
 		String target = T.getTarget();
 		System.out.println("执行抓取任务，抓取：" + target);
 		T.priorityQueueP();
 		T.setTarget(target);
-		this.run();
+		if (count >= 0) {
+			this.run();
+		}
+
 	}
 
 }
 
 class Target {
-	private PriorityQueue<String> targetQueue = new PriorityQueue<String>();
+	private static ArrayDeque<String> targetQueue = new ArrayDeque<String>();
 
 	Target() {
-		targetQueue.offer("网站1");
-		targetQueue.offer("网站2");
-		targetQueue.offer("网站3");
-		targetQueue.offer("网站4");
-		targetQueue.offer("网站5");
-		targetQueue.offer("网站6");
-		targetQueue.offer("网站7");
-		targetQueue.offer("网站8");
-		targetQueue.offer("网站9");
-		targetQueue.offer("网站10");
+		targetQueue.push("网站9");
+		targetQueue.push("网站8");
+		targetQueue.push("网站7");
+		targetQueue.push("网站6");
+		targetQueue.push("网站5");
+		targetQueue.push("网站4");
+		targetQueue.push("网站3");
+		targetQueue.push("网站2");
+		targetQueue.push("网站1");
 	}
-	
-	public void priorityQueueP(){
+
+	public void priorityQueueP() {
 		System.out.println(targetQueue);
 	}
 
-	public String getTarget() {
+	public synchronized String getTarget() {
 		String target = null;
 		if (!targetQueue.isEmpty()) {
 			// 把目标网址从队列里面取出来
@@ -64,7 +73,7 @@ class Target {
 		return target;
 	}
 
-	public void setTarget(String target) {
+	public synchronized void setTarget(String target) {
 		// 把目标网址加入队列
 		targetQueue.add(target);
 	}
