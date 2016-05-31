@@ -84,6 +84,23 @@ class ThreadExecute {
 
 	ThreadExecute() {
 		executor = new ThreadPoolExecutor(3, 10, 200, TimeUnit.SECONDS, new ArrayBlockingQueue(5));
+		/*
+		 * public ThreadPoolExecutor(int corePoolSize,int maximumPoolSize,long
+		 * keepAliveTime,TimeUnit unit, BlockingQueue<Runnable> workQueue);
+		 * 
+		 * public ThreadPoolExecutor(int corePoolSize,int maximumPoolSize,long
+		 * keepAliveTime,TimeUnit unit, BlockingQueue<Runnable>
+		 * workQueue,ThreadFactory threadFactory);
+		 * 
+		 * public ThreadPoolExecutor(int corePoolSize,int maximumPoolSize,long
+		 * keepAliveTime,TimeUnit unit, BlockingQueue<Runnable>
+		 * workQueue,RejectedExecutionHandler handler);
+		 * 
+		 * public ThreadPoolExecutor(int corePoolSize,int maximumPoolSize,long
+		 * keepAliveTime,TimeUnit unit, BlockingQueue<Runnable>
+		 * workQueue,ThreadFactory threadFactory,RejectedExecutionHandler
+		 * handler);
+		 */
 	}
 
 	// 启动抓取线程
